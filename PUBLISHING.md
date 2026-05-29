@@ -2,7 +2,7 @@
 
 ## Package
 
-- npm package name: `@darkelogix/codex-trusted-mode`
+- npm package name: `@dexgate/codex-trusted-mode`
 - license: `MIT`
 - proprietary SDE runtime: not included
 

@@ -1,7 +1,7 @@
 {
-  "name": "@darkelogix/codex-trusted-mode",
+  "name": "@dexgate/codex-trusted-mode",
   "version": "0.1.8",
-  "description": "Codex hardening and optional SDE-backed governance adapter",
+  "description": "Codex hardening and optional dexgate-backed governance adapter",
   "license": "MIT",
   "type": "module",
   "main": "src/index.js",
@@ -12,13 +12,13 @@
   "exports": {
     ".": "./src/index.js"
   },
-  "homepage": "https://www.darkelogix.ai/codex/",
+  "homepage": "https://dexgate.ai/codex/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/darkelogix/codex-trusted-mode.git"
   },
   "bugs": {
-    "url": "https://www.darkelogix.ai/contact/"
+    "url": "https://dexgate.ai/contact/"
   },
   "keywords": [
     "codex",
@@ -26,7 +26,7 @@
     "governance",
     "policy-enforcement",
     "security",
-    "darkelogix"
+    "dexgate"
   ],
   "publishConfig": {
     "access": "public"
