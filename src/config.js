@@ -62,13 +62,25 @@ export function buildConfig(overrides = {}) {
 
 export function validateConfig(config) {
   const issues = [];
-  if (normalizeToolPolicyMode(config.toolPolicyMode) === 'ALLOWLIST_ONLY') {
+  const mode = normalizeToolPolicyMode(config.toolPolicyMode);
+  if (mode === 'ALLOWLIST_ONLY') {
     if (!Array.isArray(config.allowedTools) || config.allowedTools.length === 0) {
       issues.push('ALLOWLIST_ONLY mode requires non-empty allowedTools');
     }
   }
-  if (normalizeToolPolicyMode(config.toolPolicyMode) === 'PDP' && !config.pdpUrl) {
-    issues.push(buildMissingPdpConfigIssue());
+  if (mode === 'PDP') {
+    if (!config.pdpUrl) {
+      issues.push(buildMissingPdpConfigIssue());
+    }
+    if (!config.tenantId) {
+      issues.push('PDP mode requires tenantId so dexgate can match this workspace.');
+    }
+    if (!config.gatewayId) {
+      issues.push('PDP mode requires gatewayId so dexgate can match this environment host.');
+    }
+    if (!config.environment) {
+      issues.push('PDP mode requires environment so dexgate can apply the correct profile.');
+    }
   }
   return { ok: issues.length === 0, issues };
 }

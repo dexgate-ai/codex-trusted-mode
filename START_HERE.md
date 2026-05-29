@@ -14,7 +14,7 @@ Start with a useful free Codex hardening posture. Add SDE only when you need gov
 Install the public adapter with:
 
 ```bash
-npm install @darkelogix/codex-trusted-mode
+npm install @dexgate/codex-trusted-mode
 ```
 
 You can stay on this path indefinitely if you only need local hardening.
@@ -43,7 +43,7 @@ Use this path only after you have licensed access to SDE through Darkelogix. The
 For the current controlled-rollout governed runner path, install the beta tag:
 
 ```bash
-npm install @darkelogix/codex-trusted-mode@beta
+npm install @dexgate/codex-trusted-mode@beta
 ```
 
 Switch `toolPolicyMode` to `PDP` only after:

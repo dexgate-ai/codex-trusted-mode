@@ -10,9 +10,9 @@ The observed Codex tool surface and native app-server approval surface have been
 
 | Codex Surface / Version | Adapter Version | Certification | Notes |
 | --- | --- | --- | --- |
-| Windows hosted runner with `@openai/codex@0.120.0` | `0.1.8` | `LOCKDOWN_ONLY` | Destructive-action approval callbacks validated live. Readonly execution can surface only after completion and is returned as `completed_with_governance_gap`. |
-| Historical Ubuntu validation harnesses | `0.1.0` | `LOCKDOWN_ONLY` | Native approval callback evidence captured historically. Rerun before making broader claims on newer adapter/runtime combinations. |
-| latest (rolling) | `0.1.8` | `UNSUPPORTED` | Treat as uncertified until explicitly validated. |
+| validated current workspace session | 0.1.8 | CERTIFIED_ENFORCED | Validated observed current workspace session only. |
+| next candidate version | 0.1.8 | LOCKDOWN_ONLY | Retest before broader enforced claims. |
+| latest (rolling) | 0.1.8 | UNSUPPORTED | Treat as uncertified until explicitly validated. |
 
 ## Policy
 

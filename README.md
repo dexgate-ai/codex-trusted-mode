@@ -1,6 +1,6 @@
 # Codex Trusted Mode
 
-[![npm version](https://img.shields.io/npm/v/%40darkelogix%2Fcodex-trusted-mode)](https://www.npmjs.com/package/@darkelogix/codex-trusted-mode)
+[![npm version](https://img.shields.io/npm/v/%40dexgate%2Fcodex-trusted-mode)](https://www.npmjs.com/package/@dexgate/codex-trusted-mode)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![CI](https://github.com/darkelogix/codex-trusted-mode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/darkelogix/codex-trusted-mode/actions/workflows/ci.yml)
 
@@ -16,13 +16,13 @@ Current public product boundary:
 Install the public MIT adapter package with:
 
 ```bash
-npm install @darkelogix/codex-trusted-mode
+npm install @dexgate/codex-trusted-mode
 ```
 
 If you want the current controlled-rollout governed runner path, install the beta tag:
 
 ```bash
-npm install @darkelogix/codex-trusted-mode@beta
+npm install @dexgate/codex-trusted-mode@beta
 ```
 
 Supported packaged commands:
@@ -33,11 +33,19 @@ Both commands read governed values from `$CODEX_HOME/config.toml` / `~/.codex/co
 
 ## What `npm install` gives you
 
-`npm install @darkelogix/codex-trusted-mode` gives you the MIT adapter layer, local hardening path, and mock-PDP examples only. It does not grant access to the proprietary SDE runtime, enterprise evidence packs, or commercial governed entitlements.
+`npm install @dexgate/codex-trusted-mode` gives you the MIT adapter layer, local hardening path, and mock-PDP examples only. It does not grant access to the proprietary SDE runtime, enterprise evidence packs, or commercial governed entitlements.
 
 ## Need governed mode?
 
-If you want SDE-backed governed mode, obtain your licensed SDE runtime and deployment instructions from the Darkelogix customer console. The public npm package is the adapter install surface; the customer console is the governed-runtime delivery surface.
+If you want SDE-backed governed mode, obtain your licensed SDE runtime and deployment instructions from the dexgate customer console. The public npm package is the adapter install surface; the customer console is the governed-runtime delivery surface.
+
+Governed mode config must include:
+- `pdpUrl`
+- `tenantId`
+- `gatewayId`
+- `environment`
+
+Those values let dexgate match the correct workspace and environment host.
 
 The npm package is intentionally limited to the installable adapter surface:
 - runtime source in `src/`
@@ -82,7 +90,7 @@ Paid mode is where you add:
 - tenant and license entitlements
 - compatibility certification
 - governed traces and release evidence
-- deeper Guard Pro shell argument validation and governed command-policy semantics
+- deeper dexgate shell argument validation and governed command-policy semantics
 
 For the current supported governed validation path, run Codex through the packaged hosted session runner from the beta tag:
 

@@ -1,10 +1,10 @@
 # Security Policy
 
-If you believe you have found a security issue in `@darkelogix/codex-trusted-mode`, please report it privately first.
+If you believe you have found a security issue in `@dexgate/codex-trusted-mode`, the dexgate Codex adapter, please report it privately first.
 
 ## How To Report
 
-- Email: `mike@darkelogix.com`
+- Email: `info@dexgate.ai`
 - Include:
   - affected version
   - reproduction steps
