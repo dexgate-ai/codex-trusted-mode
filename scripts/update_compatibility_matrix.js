@@ -29,7 +29,8 @@ function buildRow(target, result, adapterVersion) {
 }
 
 function replaceMatrixTable(content, rows) {
-  const header = '| Codex Version | Repo Version | Certification | Notes |';
+  content = normalizeLineEndings(content);
+  const header = '| Codex Surface / Version | Adapter Version | Certification | Notes |';
   const divider = '| --- | --- | --- | --- |';
   const start = content.indexOf(header);
   if (start === -1) throw new Error('Compatibility table header not found.');
