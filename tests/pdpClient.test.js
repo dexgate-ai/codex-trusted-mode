@@ -27,6 +27,29 @@ test('buildPdpPayload emits the SDE authorize envelope for Codex', () => {
   });
 });
 
+test('normalizeCodexEvent includes origin metadata for SDE request tracking', () => {
+  const request = normalizeCodexEvent({
+    toolName: 'functions.apply_patch',
+    workingDirectory: 'C:\\dev\\repo',
+    sessionId: 'thread-1',
+    username: 'alice',
+    machineId: 'devbox-01',
+    repoContext: {
+      repoUrl: 'https://github.com/example/repo',
+      branch: 'main',
+      commitSha: 'abc123',
+    },
+  });
+
+  assert.equal(request.origin.user, 'alice');
+  assert.equal(request.origin.machine_id, 'devbox-01');
+  assert.equal(request.origin.repo_url, 'https://github.com/example/repo');
+  assert.equal(request.origin.branch, 'main');
+  assert.equal(request.origin.commit_sha, 'abc123');
+  assert.equal(request.origin.adapter, 'codex-trusted-mode');
+  assert.equal(request.origin.session_id, 'thread-1');
+});
+
 test('buildPdpHeaders adds bearer auth when pdpAuthToken is configured', () => {
   assert.deepEqual(buildPdpHeaders({ pdpAuthToken: ' runtime-token ' }), {
     'content-type': 'application/json',
