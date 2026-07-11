@@ -166,6 +166,40 @@ test('paid mode fails closed when PDP allow omits passport', async () => {
   }
 });
 
+test('paid mode allows explicit monitor-mode bypass without Passport', async () => {
+  const { server, url } = await startMockServer(200, {
+    decision: 'allow',
+    reasonCode: 'MONITOR_MODE_ALLOW',
+    enforcement_mode: 'monitor',
+    enforcement_bypassed: true,
+    would_have_decision: 'deny',
+    would_have_deny_code: 'PDP_PATCH_DENY',
+    would_have_deny_reason: 'Patch requires review.',
+    monitor_mode: { scope_id: 'trusted-dev-workstation', status: 'active' },
+    passport: {
+      status: 'not_issued',
+      reason: 'monitor_mode_bypass_no_passport',
+    },
+    trace: { source: 'pdp', monitor_mode: { scope_id: 'trusted-dev-workstation' } },
+  });
+  try {
+    const result = await evaluateCodexEvent(
+      { toolName: 'functions.apply_patch' },
+      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true, pdpAuthToken: 'test-token' }
+    );
+    assert.equal(result.decision, 'allow');
+    assert.equal(result.reasonCode, 'MONITOR_MODE_ALLOW');
+    assert.equal(result.governed, false);
+    assert.equal(result.enforcementMode, 'monitor');
+    assert.equal(result.enforcementBypassed, true);
+    assert.equal(result.wouldHaveDecision, 'deny');
+    assert.equal(result.wouldHaveDenyCode, 'PDP_PATCH_DENY');
+    assert.equal(result.passport.status, 'not_issued');
+  } finally {
+    server.close();
+  }
+});
+
 test('paid mode surfaces SDE guidance when using the local fallback PDP without SDE', async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async () => { throw new Error('fetch failed'); };

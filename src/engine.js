@@ -41,9 +41,14 @@ function isAuthorizingDecision(decision) {
   return decision === 'allow' || decision === 'constrain';
 }
 
+function isMonitorModeBypass(body) {
+  return body?.enforcement_mode === 'monitor' && body?.enforcement_bypassed === true;
+}
+
 function validatePdpPassport(body) {
   const decision = body?.decision || 'deny';
   if (!isAuthorizingDecision(decision)) return { ok: true };
+  if (isMonitorModeBypass(body)) return { ok: true, monitorBypass: true };
 
   const passport = body?.passport;
   if (!passport || typeof passport !== 'object') {
@@ -211,8 +216,14 @@ export async function evaluateCodexEvent(event, overrides = {}) {
       decision,
       reasonCode,
       source: 'pdp',
-      governed: pdp.body?.simulated === true ? false : true,
+      governed: pdp.body?.simulated === true || pdp.body?.enforcement_bypassed === true ? false : true,
       simulated: pdp.body?.simulated === true,
+      enforcementMode: pdp.body?.enforcement_mode || 'enforce',
+      enforcementBypassed: pdp.body?.enforcement_bypassed === true,
+      wouldHaveDecision: pdp.body?.would_have_decision || null,
+      wouldHaveDenyCode: pdp.body?.would_have_deny_code || null,
+      wouldHaveDenyReason: pdp.body?.would_have_deny_reason || null,
+      monitorMode: pdp.body?.monitor_mode || null,
       request,
       constraints: pdp.body?.constraints || {},
       passport: pdp.body?.passport || null,
@@ -226,6 +237,10 @@ export async function evaluateCodexEvent(event, overrides = {}) {
       source: result.source,
       governed: result.governed,
       simulated: result.simulated,
+      enforcementMode: result.enforcementMode,
+      enforcementBypassed: result.enforcementBypassed,
+      wouldHaveDecision: result.wouldHaveDecision,
+      wouldHaveDenyCode: result.wouldHaveDenyCode,
     });
     return result;
   } catch (error) {
