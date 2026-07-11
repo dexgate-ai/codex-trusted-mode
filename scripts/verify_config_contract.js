@@ -23,6 +23,8 @@ assert.deepEqual(config.configSchema.allowedShellCommandPrefixes.default, [
 assert.deepEqual(config.configSchema.highRiskTools.default, [
   'functions.apply_patch',
   'functions.shell_command',
+  'git_push',
+  'deploy_class',
 ]);
 
 console.log('Config contract verified.');

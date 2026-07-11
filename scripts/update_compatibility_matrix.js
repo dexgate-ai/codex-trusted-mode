@@ -12,12 +12,19 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+function toInternalStatus(status) {
+  if (status === 'CERTIFIED_ENFORCED') return 'INTERNAL_EVIDENCE_REVIEWED';
+  if (status === 'UNSUPPORTED') return 'UNVERIFIED';
+  return status;
+}
+
 function statusFromResult(target, result) {
-  if (!result) return target.certification_status;
-  if (target.certification_status === 'UNSUPPORTED') return 'UNSUPPORTED';
-  return result.releaseStatus === 'CERTIFIED_ENFORCED_READY'
+  if (!result) return toInternalStatus(target.certification_status);
+  if (target.certification_status === 'UNSUPPORTED') return 'UNVERIFIED';
+  const certificationStatus = result.releaseStatus === 'CERTIFIED_ENFORCED_READY'
     ? 'CERTIFIED_ENFORCED'
     : 'LOCKDOWN_ONLY';
+  return toInternalStatus(certificationStatus);
 }
 
 function buildRow(target, result, adapterVersion) {
@@ -30,7 +37,7 @@ function buildRow(target, result, adapterVersion) {
 
 function replaceMatrixTable(content, rows) {
   content = normalizeLineEndings(content);
-  const header = '| Codex Surface / Version | Adapter Version | Certification | Notes |';
+  const header = '| Codex Surface / Version | Adapter Version | Internal Status | Notes |';
   const divider = '| --- | --- | --- | --- |';
   const start = content.indexOf(header);
   if (start === -1) throw new Error('Compatibility table header not found.');
