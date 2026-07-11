@@ -38,6 +38,12 @@ test('normalizeCodexEvent includes origin metadata for SDE request tracking', ()
       repoUrl: 'https://github.com/example/repo',
       branch: 'main',
       commitSha: 'abc123',
+      githubPrUrl: 'https://github.com/example/repo/pull/42',
+      githubPrNumber: 42,
+      checkRunUrl: 'https://github.com/example/repo/actions/runs/99',
+      githubWorkflow: 'deploy',
+      githubRunId: 99,
+      deploymentEnvironment: 'prod',
     },
   });
 
@@ -46,6 +52,12 @@ test('normalizeCodexEvent includes origin metadata for SDE request tracking', ()
   assert.equal(request.origin.repo_url, 'https://github.com/example/repo');
   assert.equal(request.origin.branch, 'main');
   assert.equal(request.origin.commit_sha, 'abc123');
+  assert.equal(request.origin.github_pr_url, 'https://github.com/example/repo/pull/42');
+  assert.equal(request.origin.github_pr_number, '42');
+  assert.equal(request.origin.github_check_url, 'https://github.com/example/repo/actions/runs/99');
+  assert.equal(request.origin.github_workflow, 'deploy');
+  assert.equal(request.origin.github_run_id, '99');
+  assert.equal(request.origin.deployment_environment, 'prod');
   assert.equal(request.origin.adapter, 'codex-trusted-mode');
   assert.equal(request.origin.session_id, 'thread-1');
 });

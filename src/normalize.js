@@ -13,6 +13,14 @@ export function normalizeActionType(toolName) {
   return ACTION_TYPE_MAP.get(normalized) || 'unknown';
 }
 
+function firstString(...values) {
+  for (const value of values) {
+    const out = String(value ?? '').trim();
+    if (out) return out;
+  }
+  return '';
+}
+
 export function normalizeCodexEvent(event = {}) {
   const toolName = String(event.toolName || '').trim();
   const repoContext = event.repoContext || {};
@@ -26,6 +34,15 @@ export function normalizeCodexEvent(event = {}) {
     repo_path: repoContext.repoPath || event.workingDirectory || '',
     branch: repoContext.branch || '',
     commit_sha: repoContext.commitSha || repoContext.sha || '',
+    github_pr_url: firstString(repoContext.githubPrUrl, repoContext.pullRequestUrl, repoContext.prUrl, event.githubPrUrl, event.pullRequestUrl, event.prUrl),
+    github_pr_number: firstString(repoContext.githubPrNumber, repoContext.pullRequestNumber, repoContext.prNumber, event.githubPrNumber, event.pullRequestNumber, event.prNumber),
+    github_check_url: firstString(repoContext.githubCheckUrl, repoContext.checkRunUrl, repoContext.checkUrl, event.githubCheckUrl, event.checkRunUrl, event.checkUrl),
+    github_check_run_id: firstString(repoContext.githubCheckRunId, repoContext.checkRunId, event.githubCheckRunId, event.checkRunId),
+    github_workflow: firstString(repoContext.githubWorkflow, repoContext.workflow, event.githubWorkflow, event.workflow),
+    github_run_id: firstString(repoContext.githubRunId, repoContext.workflowRunId, repoContext.runId, event.githubRunId, event.workflowRunId, event.runId),
+    deployment_url: firstString(repoContext.deploymentUrl, event.deploymentUrl),
+    deployment_id: firstString(repoContext.deploymentId, event.deploymentId),
+    deployment_environment: firstString(repoContext.deploymentEnvironment, event.deploymentEnvironment),
     workspace: event.workingDirectory || '',
     agent: 'codex',
     agent_version: event.runtimeVersion || '',
