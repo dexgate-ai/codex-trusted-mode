@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This pack scaffold defines the SDE-side policy contract for Codex Trusted Mode.
+This pack scaffold defines the SDE-side policy contract for the DexGate Codex Adapter.
 
 ## Current Status
 

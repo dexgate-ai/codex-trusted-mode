@@ -22,7 +22,14 @@ export function buildPdpHeaders(config) {
   return headers;
 }
 
+export function hasPdpAuthToken(config) {
+  return typeof config.pdpAuthToken === 'string' && config.pdpAuthToken.trim().length > 0;
+}
+
 export async function authorizeWithPdp(config, request) {
+  if (!hasPdpAuthToken(config)) {
+    throw new Error('PDP_AUTH_TOKEN is required for paid dexgate PDP authorization');
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), config.pdpTimeoutMs);
   try {

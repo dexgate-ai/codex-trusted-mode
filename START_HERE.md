@@ -7,7 +7,7 @@ This repo supports two distinct customer paths:
 
 ## Objective
 
-Start with a useful free Codex hardening posture. Add SDE only when you need governed authorization, evidence, and certification.
+Start with a useful free Codex hardening posture. Add SDE only when you need service-backed authorization, rollout records, and reviewed operating evidence.
 
 ## Free Standalone Path
 
@@ -33,12 +33,17 @@ Run:
 ```bash
 node scripts/verify_config_contract.js
 node scripts/verify_local_hardening.js
+npm run local-hardening-check
 node scripts/run_free_demo.js
 ```
 
+The local hardening report should say `governed: false` and `source: "local-hardening"`. That is the expected free-tier proof: it shows safer local defaults without claiming SDE-backed governance.
+
+Optional telemetry is off by default. To help dexgate improve the free-to-paid path, set `DEXGATE_TELEMETRY_OPT_IN=true` before running checks. Telemetry records coarse events only; it does not send prompts, commands, file paths, tool parameters, or PDP payloads.
+
 ## Paid Governed Path
 
-Use this path only after you have licensed access to SDE through dexgate. The public npm package is the adapter layer; the customer console is the supported way to obtain the governed runtime, deployment materials, and instructions.
+Use this path only after you have licensed access to SDE through dexgate. The public npm package is the adapter layer; <https://dexgate.ai/console/downloads/> is the supported way to obtain the governed runtime, deployment materials, PDP auth token, and instructions.
 
 For the current controlled-rollout governed runner path, install the beta tag:
 
@@ -60,7 +65,7 @@ codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
 Current expected result on supported Codex builds:
-- destructive actions can be governed live through native approval callbacks
+- selected destructive-action requests can be routed through native approval callbacks
 - readonly actions that do not emit a pre-execution hook are returned as `completed_with_governance_gap`
 
 Repo-level deeper checks remain available with:
@@ -70,6 +75,8 @@ node scripts/verify_pdp_request_shape.js
 node scripts/mock_pdp.js
 node scripts/run_governed_example.js
 ```
+
+The mock PDP path is explicitly simulated. Use it to validate adapter behavior and request shape only. Use the dexgate customer console runtime bundle and PDP auth token for authorized service-backed policy decisions and rollout records.
 
 ## Next Documents
 

@@ -39,6 +39,7 @@ liveTest('live SDE integration allows readonly shell command for entitled Codex 
       {
         toolPolicyMode: 'PDP',
         pdpUrl: server.pdpUrl,
+        pdpAuthToken: server.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
         environment: 'prod',
@@ -70,6 +71,7 @@ liveTest('live SDE integration returns the real deny code for blocked Codex tool
       {
         toolPolicyMode: 'PDP',
         pdpUrl: server.pdpUrl,
+        pdpAuthToken: server.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
       }
@@ -110,6 +112,7 @@ liveTest('live SDE integration enforces Codex tenant policy variant locks', asyn
       {
         toolPolicyMode: 'PDP',
         pdpUrl: server.pdpUrl,
+        pdpAuthToken: server.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
         policyVariant: 'guard-pro.v2026.02',
@@ -140,6 +143,7 @@ liveTest('live SDE integration reflects entitlement removal across sessions', as
       {
         toolPolicyMode: 'PDP',
         pdpUrl: firstServer.pdpUrl,
+        pdpAuthToken: firstServer.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
       }
@@ -164,6 +168,7 @@ liveTest('live SDE integration reflects entitlement removal across sessions', as
       {
         toolPolicyMode: 'PDP',
         pdpUrl: secondServer.pdpUrl,
+        pdpAuthToken: secondServer.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
       }
@@ -202,6 +207,7 @@ liveTest('live SDE integration denies requests after the decision volume limit i
       {
         toolPolicyMode: 'PDP',
         pdpUrl: server.pdpUrl,
+        pdpAuthToken: server.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
       }
@@ -217,6 +223,7 @@ liveTest('live SDE integration denies requests after the decision volume limit i
       {
         toolPolicyMode: 'PDP',
         pdpUrl: server.pdpUrl,
+        pdpAuthToken: server.pdpAuthToken,
         failClosed: true,
         tenantId: 'trial-tenant',
       }

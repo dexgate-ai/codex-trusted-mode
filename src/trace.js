@@ -4,6 +4,8 @@ export function createLocalTrace(config, request, decision, reasonCode) {
     contractId: config.contractId,
     contractVersion: config.contractVersion,
     policyPackVersion: 'local-hardening',
+    governed: false,
+    source: 'local-hardening',
     decision,
     reasonCode,
     timestampUtc: new Date().toISOString(),

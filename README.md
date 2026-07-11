@@ -1,15 +1,23 @@
-# Codex Trusted Mode
+# DexGate Codex Adapter Package
 
-[![npm version](https://img.shields.io/npm/v/%40dexgate%2Fcodex-trusted-mode)](https://www.npmjs.com/package/@dexgate/codex-trusted-mode)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![CI](https://github.com/darkelogix/codex-trusted-mode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/darkelogix/codex-trusted-mode/actions/workflows/ci.yml)
 
-Codex Trusted Mode is a Codex-to-SDE integration layer for governed tool execution.
+This package is a Codex adapter and integration helper for DexGate-governed workflows.
 
 Current public product boundary:
-- standalone free mode is available from the public npm package
-- destructive-action governance is validated through the hosted runner
-- readonly actions on current Codex builds can surface only after completion and are reported as governance gaps
+- the public npm package provides adapter code, local dry-run/evaluation helpers, and mock request examples
+- active protected execution depends on an authorized DexGate service, configured policy, entitlement, and runtime checks
+- adapter installation does not by itself indicate active enforcement, customer entitlement, or policy-preserving context curation
+- runtime hook coverage depends on the Codex runtime surface available at execution time
+
+## Capability Kernel role
+
+This package is a PEP adapter for the SDE / DexGate Capability Kernel
+(`PROPOSE -> OBSERVE -> UPDATE -> BOUND -> DECIDE -> ACT -> LEARN`). It
+normalizes Codex tool and approval events into Proposals, applies a free local
+hard gate or paid PDP evaluation, and refuses paid execution when the PDP auth
+token or scoped Passport contract is missing or invalid. It is not the kernel
+runtime; `npm install` alone does not grant SDE or passport authority.
 
 ## npm Package
 
@@ -19,36 +27,50 @@ Install the public MIT adapter package with:
 npm install @dexgate/codex-trusted-mode
 ```
 
-If you want the current controlled-rollout governed runner path, install the beta tag:
+For internal evaluation of the current hosted validation path, use the beta tag only when that path has been authorized for your environment:
 
 ```bash
 npm install @dexgate/codex-trusted-mode@beta
 ```
 
-Supported packaged commands:
-- `codex-trusted-mode-bridge` for native Codex app-server approval callbacks over stdio JSON-RPC
-- `codex-trusted-mode-run-turn` for the hosted governed-turn validation path
+Packaged commands:
+- `codex-trusted-mode-bridge` for Codex app-server approval callback integration over stdio JSON-RPC
+- `codex-trusted-mode-run-turn` for hosted validation flow evaluation
+- `codex-local-hardening-check` for a no-network free-mode proof-of-value report
 
-Both commands read governed values from `$CODEX_HOME/config.toml` / `~/.codex/config.toml` by default, or from `--codex-config <path>`.
+The adapter commands read values from `$CODEX_HOME/config.toml` / `~/.codex/config.toml` by default, or from `--codex-config <path>`.
 
 ## What `npm install` gives you
 
 `npm install @dexgate/codex-trusted-mode` gives you the MIT adapter layer, local hardening path, and mock-PDP examples only. It does not grant access to the proprietary SDE runtime, enterprise evidence packs, or commercial governed entitlements.
 
-## Need governed mode?
+Public adapter availability does not by itself indicate:
+- active protected execution
+- active DexGate policy enforcement
+- active customer entitlement
+- active context curation
+- deployment assurance, validation status, or approval of a deployment
 
-If you want SDE-backed governed mode, obtain your licensed SDE runtime and deployment instructions from the dexgate customer console. The public npm package is the adapter install surface; the customer console is the governed-runtime delivery surface.
+## Need DexGate service-backed operation?
 
-Governed mode config must include:
+If you want DexGate service-backed operation, compare plans at <https://dexgate.ai/pricing/> or download your licensed runtime and deployment instructions from <https://dexgate.ai/console/downloads/>. The public npm package is the adapter install surface; the customer console is the licensed-runtime delivery surface.
+
+Service-backed operation may support:
+- policy decision requests before selected actions execute, when runtime hooks are available and configured
+- decision records and trace IDs
+- tenant entitlements, gateway/environment limits, and rollout evidence
+- licensed runtime bundles and supportable deployment instructions
+
+Service-backed config must include:
 - `pdpUrl`
 - `tenantId`
 - `gatewayId`
 - `environment`
 
-Those values let dexgate match the correct workspace and environment host.
+Those values let DexGate match the correct workspace and environment host.
 
-For licensed governed deployments, also configure a PDP bearer token with either:
-- `pdpAuthToken` in the Codex trusted-mode config block
+For licensed deployments, also configure a PDP bearer token with either:
+- `pdpAuthToken` in the Codex adapter config block
 - `PDP_AUTH_TOKEN` or `DEXGATE_PDP_AUTH_TOKEN` in the process environment
 
 When present, the adapter sends `Authorization: Bearer <token>` on PDP requests.
@@ -60,19 +82,19 @@ The npm package is intentionally limited to the installable adapter surface:
 
 It does not include the proprietary SDE runtime, enterprise packs, or full engineering evidence tree.
 
-## Controlled Rollout Status
+## Integration Status
 
-The current Codex governed path is a controlled rollout, not full parity with OpenClaw.
+The current Codex adapter path is an evaluation/integration path, not full parity with every supported runtime.
 
-What is validated live today:
-- native Codex app-server approval callbacks for destructive actions such as command execution and file changes
-- bridge logic that maps those approval requests into Codex Trusted Mode decisions
-- hosted-runner denial of destructive actions through SDE-backed policy
-- explicit governance-gap detection when readonly execution is only surfaced after completion
+What current internal evidence covers:
+- Codex app-server approval callback handling for selected destructive-action requests such as command execution and file changes
+- bridge logic that maps those approval requests into DexGate decision responses
+- hosted-runner dry-run denial behavior through service-backed policy checks
+- explicit gap detection when readonly execution is only surfaced after completion
 
 What is not claimed on current Codex builds:
 - full pre-execution governance parity for readonly actions
-- broader certified-enforced claims across all Codex builds or platforms
+- deployment assurance, guarantee, or runtime-wide protected execution across all Codex builds or platforms
 
 ## Free Mode
 
@@ -84,28 +106,50 @@ Default free posture:
 
 This makes the standalone offering useful before any SDE deployment.
 
-## Paid Mode
+Run the free-mode proof-of-value check:
+
+```bash
+npm run local-hardening-check
+# or, after package install:
+npx codex-local-hardening-check
+```
+
+Expected report fields include `governed: false` and `source: "local-hardening"`. That is intentional: free mode demonstrates local hardening behavior, not active DexGate service-backed operation.
+
+## Optional Telemetry
+
+Telemetry is disabled by default. If you opt in, the adapter sends coarse usage events to dexgate so we can understand where free users succeed, where upgrade friction appears, and which runtime path needs better guidance.
+
+Opt in with:
+
+```bash
+DEXGATE_TELEMETRY_OPT_IN=true npm run local-hardening-check
+```
+
+Telemetry does not include prompts, commands, file paths, tool parameters, PDP payloads, or policy contents. Tenant and gateway identifiers are hashed before transmission. You can set `DEXGATE_TELEMETRY_INSTALL_ID` to a non-secret identifier if you want repeated checks from the same environment grouped together.
+
+## Licensed DexGate Service Mode
 
 When `toolPolicyMode` is set to `PDP`, the adapter can send a normalized request to an SDE PDP and apply:
 - `allow`
 - `deny`
 - `constrain`
 
-Paid mode is where you add:
-- signed policy packs
+Licensed service mode is where a configured deployment may add:
+- PDP-backed authorization
 - tenant and license entitlements
-- compatibility certification
-- governed traces and release evidence
-- deeper dexgate shell argument validation and governed command-policy semantics
+- compatibility review evidence
+- decision traces and release evidence
+- deeper DexGate shell argument validation and command-policy semantics
 
-For the current supported governed validation path, run Codex through the packaged hosted session runner from the beta tag:
+For the current supported validation path, run Codex through the packaged hosted session runner from the beta tag:
 
 ```bash
 codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
 Expected current boundary on supported Codex builds:
-- destructive actions can trigger native approval callbacks and be governed live
+- selected destructive-action requests can trigger native approval callbacks and be routed through a decision path
 - readonly actions that do not emit a pre-execution hook are returned as `completed_with_governance_gap`
 
 ## Quick Start
@@ -118,7 +162,6 @@ Expected current boundary on supported Codex builds:
 node scripts/verify_config_contract.js
 node scripts/verify_local_hardening.js
 node scripts/verify_pdp_request_shape.js
-node scripts/verify_certification_gate.js
 ```
 
 4. Run the test suite:
@@ -131,6 +174,7 @@ node --test
 
 ```bash
 node scripts/run_free_demo.js
+npm run local-hardening-check
 ```
 
 6. Evaluate a single sample event:
@@ -145,13 +189,15 @@ node scripts/evaluate_event.js --event examples/readonly-shell-event.json --conf
 node scripts/evaluate_app_server_request.js --input examples/native-command-approval-request.json
 ```
 
-8. Run the governed validation path through the hosted runner:
+8. Run the hosted validation path through the packaged runner:
 
 ```bash
 codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
-9. Review the compatibility and rollout boundary before making broader claims:
+Repo-level mock PDP examples are marked as simulated. They are useful for request-shape and adapter behavior checks, but they are not customer deployment evidence.
+
+9. Review the compatibility and rollout boundary before describing service-backed behavior:
 
 - [COMPATIBILITY_MATRIX.md](./COMPATIBILITY_MATRIX.md)
 - [START_HERE.md](./START_HERE.md)

@@ -1,4 +1,5 @@
 import { buildMissingPdpConfigIssue } from './sdeGuidance.js';
+import { buildTelemetryConfig } from './telemetry.js';
 
 export const DEFAULT_ALLOWED_TOOLS = [
   'functions.shell_command',
@@ -16,7 +17,7 @@ export const DEFAULT_ALLOWED_SHELL_PREFIXES = [
   'ls',
   'cat',
 ];
-export const DEFAULT_HIGH_RISK_TOOLS = ['functions.apply_patch', 'functions.shell_command'];
+export const DEFAULT_HIGH_RISK_TOOLS = ['functions.apply_patch', 'functions.shell_command', 'git_push', 'deploy_class'];
 
 export function normalizeToolPolicyMode(value) {
   return typeof value === 'string' && value.trim().toUpperCase() === 'PDP'
@@ -33,6 +34,7 @@ export function normalizeCertificationStatus(value) {
 
 export function buildConfig(overrides = {}) {
   return {
+    ...buildTelemetryConfig(overrides),
     toolPolicyMode: normalizeToolPolicyMode(overrides.toolPolicyMode),
     allowedTools: Array.isArray(overrides.allowedTools) && overrides.allowedTools.length > 0
       ? overrides.allowedTools
@@ -44,6 +46,12 @@ export function buildConfig(overrides = {}) {
     highRiskTools: Array.isArray(overrides.highRiskTools) && overrides.highRiskTools.length > 0
       ? overrides.highRiskTools
       : DEFAULT_HIGH_RISK_TOOLS,
+    beachheadProfile:
+      typeof overrides.beachheadProfile === 'string' ? overrides.beachheadProfile : 'prod_change',
+    passportSchemaId:
+      typeof overrides.passportSchemaId === 'string'
+        ? overrides.passportSchemaId
+        : 'passport.schema.coding.prod_change.v1',
     certificationStatus: normalizeCertificationStatus(overrides.certificationStatus),
     failClosed: overrides.failClosed !== false,
     pdpUrl: typeof overrides.pdpUrl === 'string' ? overrides.pdpUrl : 'http://localhost:8001/v1/authorize',
@@ -75,6 +83,9 @@ export function validateConfig(config) {
   if (mode === 'PDP') {
     if (!config.pdpUrl) {
       issues.push(buildMissingPdpConfigIssue());
+    }
+    if (!config.pdpAuthToken) {
+      issues.push('PDP mode requires pdpAuthToken so paid dexgate PDP calls are authenticated.');
     }
     if (!config.tenantId) {
       issues.push('PDP mode requires tenantId so dexgate can match this workspace.');

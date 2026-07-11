@@ -2,7 +2,7 @@
 
 ## Adapter Layer
 
-`codex-trusted-mode` is MIT-licensed.
+The adapter package is MIT-licensed.
 
 That applies to:
 - the local hardening engine
@@ -22,7 +22,7 @@ The MIT license for this repo does not grant rights to:
 ## Practical Split
 
 - free use of this repo: local hardening and integration development
-- paid use of the governed SDE runtime: separate commercial license or written permission required
+- paid use of the governed SDE runtime: separate commercial license or written permission under counsel-approved terms required
 
 ## Recommendation
 

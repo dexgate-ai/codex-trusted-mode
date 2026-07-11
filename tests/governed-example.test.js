@@ -4,6 +4,22 @@ import http from 'node:http';
 import { evaluateCodexEvent } from '../src/index.js';
 import { containsShellControlOperator, isAllowedReadonlyShellCommand, normalizeProgramName, tokenizeShellCommand } from '../src/shellPolicy.js';
 
+function validPassport(command) {
+  return {
+    status: 'issued',
+    passport_id: 'pass-test-001',
+    schema_id: 'passport.schema.coding.prod_change.v1',
+    decision_sku: 'codex.trusted_mode.authorize.v1',
+    tenant_id: 'trial-tenant',
+    authority: { authorized_action: 'functions.shell_command' },
+    scope: { target: command || 'Get-Content README.md', environment: 'dev' },
+    expires_at: '2999-01-01T00:00:00Z',
+    revocation_status: 'not_revoked',
+    proof: { signature_status: 'unsigned' },
+    verify_contract: { failure_behavior: 'refuse' },
+  };
+}
+
 function startMockServer() {
   const server = http.createServer((req, res) => {
     let body = '';
@@ -30,7 +46,12 @@ function startMockServer() {
         toolName === 'functions.shell_command' &&
         isAllowedReadonlyShellCommand(command, ['Get-Content'])
       ) {
-        response = { decision: 'allow', reasonCode: 'PDP_READONLY_SHELL_ALLOW', trace: { traceId: 't2' } };
+        response = {
+          decision: 'allow',
+          reasonCode: 'PDP_READONLY_SHELL_ALLOW',
+          passport: validPassport(command),
+          trace: { traceId: 't2' },
+        };
       } else {
         response = { decision: 'deny', reasonCode: 'PDP_MUTATING_SHELL_DENY', trace: { traceId: 't3' } };
       }
@@ -55,7 +76,7 @@ test('governed mode allows readonly shell via PDP', async () => {
   try {
     const result = await evaluateCodexEvent(
       { toolName: 'functions.shell_command', command: 'Get-Content README.md' },
-      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true }
+      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true, pdpAuthToken: 'test-token' }
     );
     assert.equal(result.decision, 'allow');
     assert.equal(result.reasonCode, 'PDP_READONLY_SHELL_ALLOW');
@@ -69,7 +90,7 @@ test('governed mode denies apply_patch via PDP', async () => {
   try {
     const result = await evaluateCodexEvent(
       { toolName: 'functions.apply_patch' },
-      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true }
+      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true, pdpAuthToken: 'test-token' }
     );
     assert.equal(result.decision, 'deny');
     assert.equal(result.reasonCode, 'PDP_PATCH_DENY');
@@ -83,7 +104,7 @@ test('governed mode denies shell control operators via PDP', async () => {
   try {
     const result = await evaluateCodexEvent(
       { toolName: 'functions.shell_command', command: 'Get-Content README.md; Remove-Item .\\tmp.txt' },
-      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true }
+      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true, pdpAuthToken: 'test-token' }
     );
     assert.equal(result.decision, 'deny');
     assert.equal(result.reasonCode, 'PDP_SHELL_CONTROL_OPERATOR_DENY');
@@ -97,7 +118,7 @@ test('governed mode denies broad interpreters via PDP', async () => {
   try {
     const result = await evaluateCodexEvent(
       { toolName: 'functions.shell_command', command: 'python script.py' },
-      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true }
+      { toolPolicyMode: 'PDP', pdpUrl: url, failClosed: true, pdpAuthToken: 'test-token' }
     );
     assert.equal(result.decision, 'deny');
     assert.equal(result.reasonCode, 'PDP_BROAD_INTERPRETER_DENY');

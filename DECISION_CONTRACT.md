@@ -2,7 +2,13 @@
 
 ## Purpose
 
-Define the normalized authorization request between a Codex enforcement point and the SDE PDP.
+Define the normalized authorization request (**Proposal** shape / passport
+schema fields) between a Codex **PEP** (this package) and the SDE **PDP**.
+
+In Capability Kernel terms, this document describes how Codex tool events are
+normalized for passport-schema evaluation. It is not an execution grant by
+itself; the PEP must enforce the PDP (or free-tier local) decision before
+side effects.
 
 ## Observed V1 Tool Surface
 

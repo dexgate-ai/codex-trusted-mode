@@ -6,17 +6,20 @@ test('adds guidance for local connectivity failures', () => {
   const result = maybeAppendSdeRuntimeGuidance('fetch failed', 'http://localhost:8001/v1/authorize');
   assert.match(result, /licensed SDE runtime/);
   assert.match(result, /ALLOWLIST_ONLY/);
+  assert.match(result, /dexgate\.ai\/pricing/);
+  assert.match(result, /PDP_AUTH_TOKEN/);
 });
 
 test('does not add guidance for explicit PDP denials', () => {
   const result = maybeAppendSdeRuntimeGuidance('PDP unreachable (403): tenant blocked', 'http://localhost:8001/v1/authorize');
   assert.match(result, /dexgate is reachable but denied this governed request/);
-  assert.match(result, /tenantId, gatewayId, and environment/);
+  assert.match(result, /tenantId, gatewayId, environment, and PDP_AUTH_TOKEN/);
 });
 
 test('missing pdp config issue explains the SDE boundary', () => {
   const result = buildMissingPdpConfigIssue();
   assert.match(result, /separately licensed SDE runtime/);
-  assert.match(result, /customer console/);
+  assert.match(result, /dexgate\.ai\/console\/downloads/);
+  assert.match(result, /PDP_AUTH_TOKEN/);
   assert.match(result, /tenantId and gatewayId/);
 });

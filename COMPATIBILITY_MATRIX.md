@@ -2,23 +2,23 @@
 
 ## Purpose
 
-Track which Codex versions and delivery surfaces are validated for the governed integration.
+Track internal review status for Codex versions and delivery surfaces. Do not treat this private matrix as public certification, customer assurance, or a security guarantee.
 
 ## Current State
 
 The observed Codex tool surface and native app-server approval surface have been documented. The current public launch boundary is narrower than OpenClaw and should be read accordingly.
 
-| Codex Surface / Version | Adapter Version | Certification | Notes |
+| Codex Surface / Version | Adapter Version | Internal Status | Notes |
 | --- | --- | --- | --- |
-| validated current workspace session | 0.1.8 | CERTIFIED_ENFORCED | Validated observed current workspace session only. |
-| next candidate version | 0.1.8 | LOCKDOWN_ONLY | Retest before broader enforced claims. |
-| latest (rolling) | 0.1.8 | UNSUPPORTED | Treat as uncertified until explicitly validated. |
+| validated current workspace session | 0.1.8 | INTERNAL_EVIDENCE_REVIEWED | Observed current workspace session only; not public assurance wording. |
+| next candidate version | 0.1.8 | LOCKDOWN_ONLY | Retest before broader public status wording. |
+| latest (rolling) | 0.1.8 | UNVERIFIED | No public status wording is supported. |
 
 ## Policy
 
-- `CERTIFIED_ENFORCED` requires validated request shape and native pre-execution enforcement behavior for the claimed surface
-- `LOCKDOWN_ONLY` means local hardening and constrained governed claims are available, but broad pre-execution governed-enforcement claims are not made
-- `UNSUPPORTED` means no claims are made
+- `INTERNAL_EVIDENCE_REVIEWED` means internal evidence exists for the named surface, but public wording still requires separate counsel/CEO approval
+- `LOCKDOWN_ONLY` means local hardening behavior is available, but broader public status wording is not made
+- `UNVERIFIED` means no public status wording is supported
 
 ## Controlled-Rollout Release Gate
 
@@ -38,7 +38,6 @@ Promotion beyond the current boundary requires:
 
 - [release-evidence/README.md](./release-evidence/README.md)
 - [release-evidence/native-hook-evidence.json](./release-evidence/native-hook-evidence.json)
-- [release-evidence/20260306-certified-enforced-summary.md](./release-evidence/20260306-certified-enforced-summary.md)
 - [release-evidence/20260307-ubuntu-linux-validation-summary.md](./release-evidence/20260307-ubuntu-linux-validation-summary.md)
 - [release-evidence/live-app-server-session-summary.json](./release-evidence/live-app-server-session-summary.json)
 

@@ -15,7 +15,7 @@ node --test
 node scripts/verify_config_contract.js
 node scripts/verify_local_hardening.js
 node scripts/verify_pdp_request_shape.js
-node scripts/verify_certification_gate.js
+node scripts/verify_certification_gate.js  # internal release-gate script name; not public approval wording
 ```
 
 2. Inspect the tarball contents:
@@ -32,7 +32,7 @@ npm pack --dry-run
 4. Confirm the public claim boundary still matches the docs:
 - MIT adapter package only
 - proprietary SDE runtime sold separately
-- `CERTIFIED_ENFORCED` claim scoped only to declared compatibility rows
+- any public status wording has explicit counsel approval and supporting evidence
 
 ## Publish Notes
 

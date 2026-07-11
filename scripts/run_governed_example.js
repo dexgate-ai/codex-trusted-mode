@@ -10,6 +10,8 @@ const evidenceDir = path.join(repoRoot, 'release-evidence');
 
 async function run() {
   const pdpUrl = process.env.CODEX_TRUSTED_MODE_PDP_URL || 'http://127.0.0.1:8011/v1/authorize';
+  const pdpAuthToken = process.env.CODEX_TRUSTED_MODE_PDP_AUTH_TOKEN || process.env.PDP_AUTH_TOKEN || 'mock-pdp-token';
+  const isDefaultMockUrl = pdpUrl.includes('127.0.0.1:8011') || pdpUrl.includes('localhost:8011');
 
   const scenarios = [
     {
@@ -45,6 +47,7 @@ async function run() {
     const result = await evaluateCodexEvent(scenario.event, {
       toolPolicyMode: 'PDP',
       pdpUrl,
+      pdpAuthToken,
       failClosed: true,
     });
     results.push({
@@ -55,11 +58,25 @@ async function run() {
       constraints: result.constraints || {},
       trace: result.trace,
       source: result.source,
+      governed: result.governed === true,
+      simulated: result.simulated === true || isDefaultMockUrl,
     });
   }
 
   const outputPath = path.join(evidenceDir, '20260306-governed-example-results.json');
-  fs.writeFileSync(outputPath, JSON.stringify({ pdpUrl, results }, null, 2));
+  fs.writeFileSync(outputPath, JSON.stringify({
+    pdpUrl,
+    simulation: {
+      simulated: isDefaultMockUrl,
+      warning: isDefaultMockUrl
+        ? 'This example used the local mock PDP. It is not licensed dexgate SDE governance evidence.'
+        : 'If this PDP URL is not your licensed dexgate SDE runtime, treat this output as simulated.',
+    },
+    results,
+  }, null, 2));
+  if (isDefaultMockUrl) {
+    console.log('SIMULATED GOVERNED EXAMPLE: local mock PDP used; no paid governed evidence was produced.');
+  }
   console.log(`Governed example results written to ${outputPath}`);
 }
 

@@ -57,6 +57,7 @@ async function run() {
       decision: result.decision,
       reasonCode: result.reasonCode,
       source: result.source,
+      governed: false,
       trace: result.trace,
     });
   }

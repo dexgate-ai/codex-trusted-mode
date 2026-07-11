@@ -1,6 +1,6 @@
 {
   "id": "codex-trusted-mode",
-  "name": "Codex Trusted Mode",
+  "name": "DexGate Codex Adapter",
   "version": "0.1.0",
   "description": "Local hardening first, optional SDE-backed governance second",
   "configSchema": {
@@ -17,9 +17,17 @@
       "type": "array",
       "default": ["Get-ChildItem", "Get-Content", "rg", "git status", "git diff", "git show", "pwd", "ls", "cat"]
     },
+    "beachheadProfile": {
+      "type": "string",
+      "default": "prod_change"
+    },
+    "passportSchemaId": {
+      "type": "string",
+      "default": "passport.schema.coding.prod_change.v1"
+    },
     "highRiskTools": {
       "type": "array",
-      "default": ["functions.apply_patch", "functions.shell_command"]
+      "default": ["functions.apply_patch", "functions.shell_command", "git_push", "deploy_class"]
     },
     "certificationStatus": {
       "type": "string",
@@ -33,6 +41,9 @@
     "pdpUrl": {
       "type": "string",
       "default": "http://localhost:8001/v1/authorize"
+    },
+    "pdpAuthToken": {
+      "type": "string"
     },
     "pdpTimeoutMs": {
       "type": "number",
@@ -55,6 +66,9 @@
       "default": "0.1.0"
     },
     "tenantId": {
+      "type": "string"
+    },
+    "gatewayId": {
       "type": "string"
     },
     "environment": {
