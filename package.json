@@ -1,6 +1,6 @@
 {
   "name": "@dexgate/codex-trusted-mode",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Codex hardening and optional dexgate-backed governance adapter",
   "license": "MIT",
   "type": "module",

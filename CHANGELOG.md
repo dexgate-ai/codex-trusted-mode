@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.11
+- Point README and START_HERE at dexgate.ai, GitHub org `dexgate-ai`, and X [@dexgateAI](https://x.com/dexgateAI).
+- Document hosted Codex quickstart; marketplace install uses `dexgate-ai/codex-trusted-mode`.
+- Remove `@beta` install path from onboarding; publish uses `latest` only (no `pilot` dist-tag).
+- Fix Codex plugin manifest `repository` URL to `github.com/dexgate-ai/codex-trusted-mode`.
+
+## 0.1.10
+- Point npm `repository` metadata at `github.com/dexgate-ai/codex-trusted-mode`.
+
 ## 0.1.8
 
 - detect post-hoc readonly execution from both `rawResponseItem/completed` local-shell items and completed thread commandExecution items
