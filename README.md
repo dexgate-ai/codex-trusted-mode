@@ -11,6 +11,18 @@ Current public product boundary:
 - destructive-action governance is validated through the hosted runner
 - readonly actions on current Codex builds can surface only after completion and are reported as governance gaps
 
+
+## Codex marketplace (discovery)
+
+Skill-based Codex plugin + repo marketplace for Plugins Directory visibility:
+
+```bash
+codex plugin marketplace add darkelogix/codex-trusted-mode
+```
+
+Details: [CODEX_MARKETPLACE.md](./CODEX_MARKETPLACE.md). Runtime enforcement still comes from the npm adapter (
+px codex-local-hardening-check), not from skills alone.
+
 ## npm Package
 
 Install the public MIT adapter package with:
