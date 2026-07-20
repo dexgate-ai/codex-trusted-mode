@@ -20,9 +20,9 @@ install of the published npm package and first-success commands.
 
 ```bash
 # Track this GitHub repo as a Codex plugin marketplace
-codex plugin marketplace add darkelogix/codex-trusted-mode
+codex plugin marketplace add dexgate-ai/codex-trusted-mode
 # optional pin:
-# codex plugin marketplace add darkelogix/codex-trusted-mode --ref main
+# codex plugin marketplace add dexgate-ai/codex-trusted-mode --ref main
 
 codex plugin marketplace list
 ```

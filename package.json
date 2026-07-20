@@ -1,6 +1,6 @@
 {
   "name": "@dexgate/codex-trusted-mode",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Codex hardening and optional dexgate-backed governance adapter",
   "license": "MIT",
   "type": "module",
@@ -15,7 +15,7 @@
   "homepage": "https://dexgate.ai/codex/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darkelogix/codex-trusted-mode.git"
+    "url": "git+https://github.com/dexgate-ai/codex-trusted-mode.git"
   },
   "bugs": {
     "url": "https://dexgate.ai/contact/"

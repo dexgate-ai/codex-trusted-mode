@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/%40dexgate%2Fcodex-trusted-mode)](https://www.npmjs.com/package/@dexgate/codex-trusted-mode)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![CI](https://github.com/darkelogix/codex-trusted-mode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/darkelogix/codex-trusted-mode/actions/workflows/ci.yml)
+[![CI](https://github.com/dexgate-ai/codex-trusted-mode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dexgate-ai/codex-trusted-mode/actions/workflows/ci.yml)
 
 Codex Trusted Mode is a Codex-to-SDE integration layer for governed tool execution.
 
@@ -17,7 +17,7 @@ Current public product boundary:
 Skill-based Codex plugin + repo marketplace for Plugins Directory visibility:
 
 ```bash
-codex plugin marketplace add darkelogix/codex-trusted-mode
+codex plugin marketplace add dexgate-ai/codex-trusted-mode
 ```
 
 Details: [CODEX_MARKETPLACE.md](./CODEX_MARKETPLACE.md). Runtime enforcement still comes from the npm adapter (
