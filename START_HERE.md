@@ -1,9 +1,11 @@
 # Start Here
 
+**Product:** [dexgate.ai](https://dexgate.ai) · **Quickstart:** [Codex docs](https://dexgate.ai/docs/codex/quickstart/) · **Console:** [dexgate.ai/console](https://dexgate.ai/console/) · **GitHub:** [dexgate-ai/codex-trusted-mode](https://github.com/dexgate-ai/codex-trusted-mode) · **X:** [@dexgateAI](https://x.com/dexgateAI)
+
 This repo supports two distinct customer paths:
 
-- npm-installed adapter with useful standalone hardening
-- separately licensed SDE-backed governed mode obtained through the dexgate customer console
+- npm-installed adapter with useful standalone hardening (`@dexgate/codex-trusted-mode`, `latest` only)
+- separately licensed SDE-backed governed mode obtained through the **DexGate customer console**
 
 ## Objective
 
@@ -38,12 +40,12 @@ node scripts/run_free_demo.js
 
 ## Paid Governed Path
 
-Use this path only after you have licensed access to SDE through dexgate. The public npm package is the adapter layer; the customer console is the supported way to obtain the governed runtime, deployment materials, and instructions.
+Use this path only after you have licensed access to SDE through DexGate. The public npm package is the adapter layer; the [customer console](https://dexgate.ai/console/) is the supported way to obtain the governed runtime, deployment materials, and instructions.
 
-For the current controlled-rollout governed runner path, install the beta tag:
+Use the current package from `latest` (same install as free mode):
 
 ```bash
-npm install @dexgate/codex-trusted-mode@beta
+npm install @dexgate/codex-trusted-mode
 ```
 
 Switch `toolPolicyMode` to `PDP` only after:

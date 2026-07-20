@@ -1,4 +1,4 @@
-# Codex Trusted Mode
+# @dexgate/codex-trusted-mode
 
 [![npm version](https://img.shields.io/npm/v/%40dexgate%2Fcodex-trusted-mode)](https://www.npmjs.com/package/@dexgate/codex-trusted-mode)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
@@ -6,11 +6,26 @@
 
 Codex Trusted Mode is a Codex-to-SDE integration layer for governed tool execution.
 
+## Links
+
+| | |
+|---|---|
+| **Product** | [dexgate.ai](https://dexgate.ai) |
+| **Codex quickstart** | [dexgate.ai/docs/codex/quickstart](https://dexgate.ai/docs/codex/quickstart/) |
+| **Pricing** | [dexgate.ai/pricing](https://dexgate.ai/pricing/) |
+| **Customer console** | [dexgate.ai/console](https://dexgate.ai/console/) |
+| **GitHub** | [github.com/dexgate-ai/codex-trusted-mode](https://github.com/dexgate-ai/codex-trusted-mode) |
+| **npm** | [@dexgate/codex-trusted-mode](https://www.npmjs.com/package/@dexgate/codex-trusted-mode) |
+| **X** | [@dexgateAI](https://x.com/dexgateAI) |
+| **Contact** | [dexgate.ai/contact](https://dexgate.ai/contact/) |
+
+First-time setup in this repo: [`START_HERE.md`](./START_HERE.md).  
+Hosted guide: [Codex quickstart](https://dexgate.ai/docs/codex/quickstart/).
+
 Current public product boundary:
-- standalone free mode is available from the public npm package
+- standalone free mode is available from the public npm package (`latest` only; no `pilot` channel)
 - destructive-action governance is validated through the hosted runner
 - readonly actions on current Codex builds can surface only after completion and are reported as governance gaps
-
 
 ## Codex marketplace (discovery)
 
@@ -20,8 +35,7 @@ Skill-based Codex plugin + repo marketplace for Plugins Directory visibility:
 codex plugin marketplace add dexgate-ai/codex-trusted-mode
 ```
 
-Details: [CODEX_MARKETPLACE.md](./CODEX_MARKETPLACE.md). Runtime enforcement still comes from the npm adapter (
-px codex-local-hardening-check), not from skills alone.
+Details: [CODEX_MARKETPLACE.md](./CODEX_MARKETPLACE.md). Runtime enforcement still comes from the npm adapter (`npx codex-local-hardening-check` / package CLIs), not from skills alone.
 
 ## npm Package
 
@@ -29,12 +43,6 @@ Install the public MIT adapter package with:
 
 ```bash
 npm install @dexgate/codex-trusted-mode
-```
-
-If you want the current controlled-rollout governed runner path, install the beta tag:
-
-```bash
-npm install @dexgate/codex-trusted-mode@beta
 ```
 
 Supported packaged commands:
@@ -110,7 +118,7 @@ Paid mode is where you add:
 - governed traces and release evidence
 - deeper dexgate shell argument validation and governed command-policy semantics
 
-For the current supported governed validation path, run Codex through the packaged hosted session runner from the beta tag:
+For the current supported governed validation path, run Codex through the packaged hosted session runner from `latest`:
 
 ```bash
 codex-trusted-mode-run-turn --prompt "Delete package.json." --json
