@@ -1,0 +1,20 @@
+{
+  "name": "dexgate-codex-plugins",
+  "interface": {
+    "displayName": "DexGate Codex Plugins"
+  },
+  "plugins": [
+    {
+      "name": "dexgate-codex-trusted-mode",
+      "source": {
+        "source": "local",
+        "path": "./plugins/dexgate-codex-trusted-mode"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Security"
+    }
+  ]
+}

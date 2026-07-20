@@ -1,0 +1,39 @@
+{
+  "name": "dexgate-codex-trusted-mode",
+  "version": "0.1.8",
+  "description": "DexGate free local hard gate for Codex plus optional paid PDP/Passport pilot path. Skills guide npm install and first-success checks; they do not replace the @dexgate/codex-trusted-mode runtime adapter.",
+  "author": {
+    "name": "Automated Decision Systems, LLC",
+    "email": "info@dexgate.ai",
+    "url": "https://dexgate.ai"
+  },
+  "homepage": "https://dexgate.ai/codex/",
+  "repository": "https://github.com/darkelogix/codex-trusted-mode",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "dexgate",
+    "local-hardening",
+    "governance",
+    "policy",
+    "security"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DexGate Codex Trusted Mode",
+    "shortDescription": "Local hard gate + optional DexGate PDP path for Codex",
+    "longDescription": "Install and run the public MIT @dexgate/codex-trusted-mode adapter for free local hardening (developer-free readonly/test constraints; no Passport). Optional paid pilot path connects a licensed DexGate runtime for PDP decisions. Free mode never mints a Passport. Not generally available production.",
+    "developerName": "Automated Decision Systems, LLC (DexGate)",
+    "category": "Security",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://dexgate.ai/codex/",
+    "privacyPolicyURL": "https://dexgate.ai/privacy/",
+    "termsOfServiceURL": "https://dexgate.ai/terms/",
+    "defaultPrompt": [
+      "Follow the DexGate free local hardening skill to install @dexgate/codex-trusted-mode and run codex-local-hardening-check.",
+      "Do not claim Passport minting or full pre-execution governance on every Codex shell path from the free install alone."
+    ]
+  }
+}
