@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.14
+- Fix agent reply capture: Codex app-server emits `item.type = "agentMessage"` (camelCase); extractor only matched `agent_message`, so interactive UI showed empty agent text.
+
 ## 0.1.13
 - Add multi-turn **governed session** CLI: `codex-trusted-mode-session` (DexGate interactive runner, not OpenAI TUI).
 - Add `GovernedCodexSession` for app-server multi-turn prompts with SDE approval gating.

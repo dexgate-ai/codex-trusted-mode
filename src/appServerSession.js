@@ -145,6 +145,16 @@ export function collectPostHocCommandExecutions(message = {}) {
 export function extractCompletedAgentMessage(message) {
   if (message?.method !== 'item/completed') return '';
   const item = message.params?.item;
-  if (item?.type !== 'agent_message') return '';
-  return typeof item.text === 'string' ? item.text : '';
+  // Codex app-server uses camelCase "agentMessage"; older traces used "agent_message".
+  const type = item?.type;
+  if (type !== 'agent_message' && type !== 'agentMessage') return '';
+  if (typeof item.text === 'string' && item.text) return item.text;
+  // Fallback: raw assistant content blocks
+  if (Array.isArray(item.content)) {
+    const parts = item.content
+      .map((c) => (typeof c?.text === 'string' ? c.text : ''))
+      .filter(Boolean);
+    if (parts.length) return parts.join('');
+  }
+  return '';
 }

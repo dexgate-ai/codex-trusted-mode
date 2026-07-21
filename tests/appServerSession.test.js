@@ -166,6 +166,13 @@ test('collectPostHocCommandExecutions also finds local_shell_call payloads from 
 
 test('extractCompletedAgentMessage returns only completed agent messages', () => {
   assert.equal(extractCompletedAgentMessage({ method: 'item/completed', params: { item: { type: 'agent_message', text: 'done' } } }), 'done');
+  assert.equal(
+    extractCompletedAgentMessage({
+      method: 'item/completed',
+      params: { item: { type: 'agentMessage', text: 'camelCase from Codex app-server' } },
+    }),
+    'camelCase from Codex app-server',
+  );
   assert.equal(extractCompletedAgentMessage({ method: 'item/completed', params: { item: { type: 'commandExecution', text: 'nope' } } }), '');
   assert.equal(extractCompletedAgentMessage({ method: 'turn/completed' }), '');
 });
