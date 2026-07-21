@@ -102,6 +102,8 @@ Do **not** claim:
 |---------|------|
 | `@dexgate/codex-trusted-mode` | Codex adapter + one-shot + multi-turn session MVP |
 | `@dexgate/openclaw-trusted-mode` | OpenClaw adapter |
-| future `@dexgate/governed-runner` or app repo | Multi-host UI + session orchestrator |
+| [`dexgate-ai/governed-runner`](https://github.com/dexgate-ai/governed-runner) | Multi-host session shell + local API + future app |
 
 SDE remains the single policy plane.
+
+**Active development of the multi-host product continues in `dexgate-ai/governed-runner`.**
