@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.12
+- Clarify claims boundary: plain interactive `codex` / Full Access is not the paid SDE enforcement path; `config.toml` alone does not intercept live TUI shell.
+- Document that paid validation uses the hosted runner / native approval bridge (`codex-trusted-mode-run-turn`).
+
 ## 0.1.11
 - Point README and START_HERE at dexgate.ai, GitHub org `dexgate-ai`, and X [@dexgateAI](https://x.com/dexgateAI).
 - Document hosted Codex quickstart; marketplace install uses `dexgate-ai/codex-trusted-mode`.

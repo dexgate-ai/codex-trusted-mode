@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![CI](https://github.com/dexgate-ai/codex-trusted-mode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dexgate-ai/codex-trusted-mode/actions/workflows/ci.yml)
 
-Codex Trusted Mode is a Codex-to-SDE integration layer for governed tool execution.
+Codex Trusted Mode is a Codex adapter: free local hardening, plus optional SDE-backed governance through the **hosted runner / native app-server approval bridge** (not plain interactive `codex` Full Access by itself).
 
 ## Links
 
@@ -24,7 +24,8 @@ Hosted guide: [Codex quickstart](https://dexgate.ai/docs/codex/quickstart/).
 
 Current public product boundary:
 - standalone free mode is available from the public npm package (`latest` only; no `pilot` channel)
-- destructive-action governance is validated through the hosted runner
+- destructive-action governance is validated through the hosted runner (`codex-trusted-mode-run-turn`) and native approval callbacks
+- `~/.codex/config.toml` `[apps.codex-trusted-mode]` values configure the adapter for that path; they do **not** intercept plain interactive `codex` (including Full Access / user-approved shell) by themselves
 - readonly actions on current Codex builds can surface only after completion and are reported as governance gaps
 
 ## Codex marketplace (discovery)
@@ -50,6 +51,8 @@ Supported packaged commands:
 - `codex-trusted-mode-run-turn` for the hosted governed-turn validation path
 
 Both commands read governed values from `$CODEX_HOME/config.toml` / `~/.codex/config.toml` by default, or from `--codex-config <path>`.
+
+**Not the paid path:** plain interactive `codex` (including Full Access / user-approved shell) does not load SDE by itself. Put `config.toml` adapter values in place, then validate with `codex-trusted-mode-run-turn` (app-server approval bridge), not a normal TUI session alone.
 
 ## What `npm install` gives you
 
@@ -93,6 +96,7 @@ What is validated live today:
 What is not claimed on current Codex builds:
 - full pre-execution governance parity for readonly actions
 - broader certified-enforced claims across all Codex builds or platforms
+- that plain interactive `codex` TUI / Full Access automatically enforces SDE policy without the hosted runner or bridge
 
 ## Free Mode
 
@@ -111,6 +115,8 @@ When `toolPolicyMode` is set to `PDP`, the adapter can send a normalized request
 - `deny`
 - `constrain`
 
+Those decisions apply when the adapter is invoked (hosted runner approval callback or bridge), not when a plain interactive TUI runs shell after user “approve” without that path.
+
 Paid mode is where you add:
 - signed policy packs
 - tenant and license entitlements
@@ -125,8 +131,9 @@ codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
 Expected current boundary on supported Codex builds:
-- destructive actions can trigger native approval callbacks and be governed live
+- destructive actions can trigger native approval callbacks and be governed live **on the hosted runner / bridge path**
 - readonly actions that do not emit a pre-execution hook are returned as `completed_with_governance_gap`
+- do **not** treat a normal interactive `codex` Full Access session as proof of SDE enforcement
 
 ## Quick Start
 

@@ -1,7 +1,7 @@
 {
   "name": "@dexgate/codex-trusted-mode",
-  "version": "0.1.11",
-  "description": "Codex hardening and optional dexgate-backed governance adapter",
+  "version": "0.1.12",
+  "description": "Codex hardening and optional SDE governance via hosted runner/approval bridge (not plain interactive Full Access alone)",
   "license": "MIT",
   "type": "module",
   "main": "src/index.js",

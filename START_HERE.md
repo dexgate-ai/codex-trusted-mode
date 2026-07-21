@@ -55,6 +55,8 @@ Switch `toolPolicyMode` to `PDP` only after:
 - fail-safe posture is explicitly chosen
 - you accept the current Codex boundary for readonly actions on supported builds
 
+**Not the paid path:** plain interactive `codex` (including Full Access / user-approved shell) does not intercept through SDE by itself. Adapter config in `~/.codex/config.toml` feeds the hosted runner and bridge; it does not silently govern a normal TUI session.
+
 For the supported package-level governed validation path, use the hosted runner that ships with the npm package:
 
 ```bash
@@ -62,7 +64,7 @@ codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
 Current expected result on supported Codex builds:
-- destructive actions can be governed live through native approval callbacks
+- destructive actions can be governed live through native approval callbacks **via the hosted runner / bridge**
 - readonly actions that do not emit a pre-execution hook are returned as `completed_with_governance_gap`
 
 Repo-level deeper checks remain available with:
