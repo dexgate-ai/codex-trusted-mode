@@ -63,8 +63,14 @@ For the supported package-level governed validation path, use the hosted runner 
 codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
+For multi-turn interactive use on the **same governed path** (DexGate session CLI, not OpenAI TUI):
+
+```bash
+codex-trusted-mode-session --cwd .
+```
+
 Current expected result on supported Codex builds:
-- destructive actions can be governed live through native approval callbacks **via the hosted runner / bridge**
+- destructive actions can be governed live through native approval callbacks **via the hosted runner / session / bridge**
 - readonly actions that do not emit a pre-execution hook are returned as `completed_with_governance_gap`
 
 Repo-level deeper checks remain available with:
@@ -78,6 +84,7 @@ node scripts/run_governed_example.js
 ## Next Documents
 
 - [README.md](./README.md)
+- [docs/GOVERNED_RUNNER_APP.md](./docs/GOVERNED_RUNNER_APP.md) — multi-host interactive app roadmap
 - [DECISION_CONTRACT.md](./DECISION_CONTRACT.md)
 - [COMPATIBILITY_MATRIX.md](./COMPATIBILITY_MATRIX.md)
 - [RELEASE_EVIDENCE_TEMPLATE.md](./RELEASE_EVIDENCE_TEMPLATE.md)

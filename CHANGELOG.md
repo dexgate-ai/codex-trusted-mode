@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.13
+- Add multi-turn **governed session** CLI: `codex-trusted-mode-session` (DexGate interactive runner, not OpenAI TUI).
+- Add `GovernedCodexSession` for app-server multi-turn prompts with SDE approval gating.
+- Document multi-host **Governed Runner App** roadmap in `docs/GOVERNED_RUNNER_APP.md`.
+
 ## 0.1.12
 - Clarify claims boundary: plain interactive `codex` / Full Access is not the paid SDE enforcement path; `config.toml` alone does not intercept live TUI shell.
 - Document that paid validation uses the hosted runner / native approval bridge (`codex-trusted-mode-run-turn`).

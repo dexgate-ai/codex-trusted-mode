@@ -48,11 +48,16 @@ npm install @dexgate/codex-trusted-mode
 
 Supported packaged commands:
 - `codex-trusted-mode-bridge` for native Codex app-server approval callbacks over stdio JSON-RPC
-- `codex-trusted-mode-run-turn` for the hosted governed-turn validation path
+- `codex-trusted-mode-run-turn` for the one-shot hosted governed-turn validation path
+- `codex-trusted-mode-session` for a **multi-turn interactive governed session** (DexGate REPL — not OpenAI’s `codex` TUI)
 
-Both commands read governed values from `$CODEX_HOME/config.toml` / `~/.codex/config.toml` by default, or from `--codex-config <path>`.
+Both the runner and the session read governed values from `$CODEX_HOME/config.toml` / `~/.codex/config.toml` by default, or from `--codex-config <path>`.
 
-**Not the paid path:** plain interactive `codex` (including Full Access / user-approved shell) does not load SDE by itself. Put `config.toml` adapter values in place, then validate with `codex-trusted-mode-run-turn` (app-server approval bridge), not a normal TUI session alone.
+**Not the paid path:** plain interactive `codex` (including Full Access / user-approved shell) does not load SDE by itself. Put `config.toml` adapter values in place, then use:
+- one-shot: `codex-trusted-mode-run-turn`
+- multi-turn: `codex-trusted-mode-session`
+
+Roadmap for a multi-host desktop/web **Governed Runner App**: [docs/GOVERNED_RUNNER_APP.md](./docs/GOVERNED_RUNNER_APP.md).
 
 ## What `npm install` gives you
 
@@ -130,8 +135,15 @@ For the current supported governed validation path, run Codex through the packag
 codex-trusted-mode-run-turn --prompt "Delete package.json." --json
 ```
 
+For multi-turn interactive governance (DexGate session, not OpenAI TUI):
+
+```bash
+codex-trusted-mode-session --cwd .
+# then type prompts; /quit to exit
+```
+
 Expected current boundary on supported Codex builds:
-- destructive actions can trigger native approval callbacks and be governed live **on the hosted runner / bridge path**
+- destructive actions can trigger native approval callbacks and be governed live **on the hosted runner / session / bridge path**
 - readonly actions that do not emit a pre-execution hook are returned as `completed_with_governance_gap`
 - do **not** treat a normal interactive `codex` Full Access session as proof of SDE enforcement
 

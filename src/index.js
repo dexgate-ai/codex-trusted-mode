@@ -13,3 +13,4 @@ export {
   collectPostHocCommandExecutions,
   extractCompletedAgentMessage,
 } from './appServerSession.js';
+export { GovernedCodexSession } from './governedCodexSession.js';
