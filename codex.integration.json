@@ -1,7 +1,7 @@
 {
   "id": "codex-trusted-mode",
   "name": "Codex Trusted Mode",
-  "version": "0.1.0",
+  "version": "0.1.16",
   "description": "Local hardening first, optional SDE-backed governance second",
   "configSchema": {
     "toolPolicyMode": {

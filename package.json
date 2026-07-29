@@ -1,6 +1,6 @@
 {
   "name": "@dexgate/codex-trusted-mode",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Codex hardening and optional SDE governance via hosted runner/approval bridge (not plain interactive Full Access alone)",
   "license": "MIT",
   "type": "module",

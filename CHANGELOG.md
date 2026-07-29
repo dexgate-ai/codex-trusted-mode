@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.16
+- Sync `codex.integration.json` version with `package.json` (was stuck at 0.1.0 while the package shipped 0.1.15).
+- Extend `verify-config` to require `codex.integration.json` and the Codex plugin manifest versions match `package.json` so the drift cannot recur.
+
 ## 0.1.15
 - Make the bridge CLI test suite hermetic: spawn with an empty temporary `CODEX_HOME` so tests do not inherit the developer’s personal governed `config.toml` (Ticket 5).
 - Refresh `COMPATIBILITY_MATRIX.md` and Codex plugin manifest version pin to match package version (Ticket 6).

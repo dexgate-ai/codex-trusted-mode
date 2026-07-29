@@ -10,9 +10,9 @@ The observed Codex tool surface and native app-server approval surface have been
 
 | Codex Surface / Version | Adapter Version | Certification | Notes |
 | --- | --- | --- | --- |
-| validated current workspace session | 0.1.15 | CERTIFIED_ENFORCED | Validated observed current workspace session only. |
-| next candidate version | 0.1.15 | LOCKDOWN_ONLY | Retest before broader enforced claims. |
-| latest (rolling) | 0.1.15 | UNSUPPORTED | Treat as uncertified until explicitly validated. |
+| validated current workspace session | 0.1.16 | CERTIFIED_ENFORCED | Validated observed current workspace session only. |
+| next candidate version | 0.1.16 | LOCKDOWN_ONLY | Retest before broader enforced claims. |
+| latest (rolling) | 0.1.16 | UNSUPPORTED | Treat as uncertified until explicitly validated. |
 
 ## Policy
 

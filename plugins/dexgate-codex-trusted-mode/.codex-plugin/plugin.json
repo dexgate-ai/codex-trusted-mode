@@ -1,6 +1,6 @@
 {
   "name": "dexgate-codex-trusted-mode",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "DexGate free local hard gate for Codex plus optional paid PDP/Passport pilot path. Skills guide npm install and first-success checks; they do not replace the @dexgate/codex-trusted-mode runtime adapter.",
   "author": {
     "name": "Automated Decision Systems, LLC",
@@ -37,4 +37,3 @@
     ]
   }
 }
-
