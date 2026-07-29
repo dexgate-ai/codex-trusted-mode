@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.15
+- Make the bridge CLI test suite hermetic: spawn with an empty temporary `CODEX_HOME` so tests do not inherit the developer’s personal governed `config.toml` (Ticket 5).
+- Refresh `COMPATIBILITY_MATRIX.md` and Codex plugin manifest version pin to match package version (Ticket 6).
+- Publish current mainline (governed session CLI + agentMessage capture) as the public `latest` pin.
+
 ## 0.1.14
 - Fix agent reply capture: Codex app-server emits `item.type = "agentMessage"` (camelCase); extractor only matched `agent_message`, so interactive UI showed empty agent text.
 
